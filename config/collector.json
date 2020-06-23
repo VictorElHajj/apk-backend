@@ -1,0 +1,6 @@
+{
+    "download_path": "https://www.systembolaget.se/api/assortment/products/xml",
+    "download_retries": 5,
+    "download_backoff": 2.5,
+    "db_path": "apk.db"
+}
