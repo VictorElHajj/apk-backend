@@ -1,0 +1,23 @@
+name: Ruby
+on: push
+jobs:
+  test:
+    runs-on: self-hosted
+    steps:
+    - name: Use Cached dependencies
+      uses: actions/cache@v2
+      with:
+        path: vendor/bundle
+        key: nilson-apk-backend-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+           ${{ runner.os }}-gems-
+    - name: Check out repo
+      uses: actions/checkout@v2
+    - name: Set up Ruby
+      run: rbenv install -s `cat .ruby-version`
+    - name: Install dependencies
+      run: |
+        bundle config path vendor/bundle
+        bundle install --jobs 4 --retry 3
+    - name: Run tests
+      run: bundle exec rspec
